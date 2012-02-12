@@ -21,7 +21,7 @@ However, special mentions to:
 - [Mozilla Developer Network's JavaScript Reference](https://developer.mozilla.org/en/JavaScript/Reference): a plethora of knowledge, code examples and shims – for older JavaScript engines.
 
 ## API
-Links to documentation – at [Mozilla Developer Network's JavaScript Reference](https://developer.mozilla.org/en/JavaScript/Reference) – for all shimmed methods are provided below.
+Links to documentation – at [Mozilla Developer Network's JavaScript Reference](https://developer.mozilla.org/en/JavaScript/Reference) – for all shimmed methods, are provided below.
 
 ### Object
 
