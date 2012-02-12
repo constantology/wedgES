@@ -64,8 +64,8 @@ Links to documentation – at [Mozilla Developer Network's JavaScript Reference]
 
 <table border="0" cellpadding="0" cellspacing="0">
 	<tbody>
-		<tr><td>wedgeES.js</td><td>1.9kb</td><td>deflate</td>
-		<tr><td>wedgeES.min.js</td><td>1.5kb</td><td>uglified + deflate</td>
+		<tr><td>wedgES.js</td><td>1.9kb</td><td>deflate</td>
+		<tr><td>wedgES.min.js</td><td>1.5kb</td><td>uglified + deflate</td>
 	</tbody>
 </table>
 
