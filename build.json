@@ -1,0 +1,10 @@
+{
+	"encoding"  : "UTF-8",
+	"ext"       : "js",
+	"file_err"  : "continue",
+	"out"       : { "dir" : "./", "file" : "wedgES", "min" : "wedgES.min" },
+	"src" : {
+		"dir"   : "./src",
+		"files" : ["wedgES.begin", "wedgES.vars", "Object", "Array", "Date", "Function", "String", "wedgES.end"]
+	}
+}
