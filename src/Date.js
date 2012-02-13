@@ -7,5 +7,5 @@
 
 		'now' in D  || ( D.now = now );
 
-		 iso  in DP || O.defineProperty( DP, iso, { enumerable : F, value : toISOString } );
+		 iso  in DP || O[defProp]( DP, iso, { enumerable : F, value : toISOString } );
 	}();

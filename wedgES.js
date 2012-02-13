@@ -11,17 +11,23 @@
     function tostr(o) {
         return OP.toString.call(o);
     }
-    var A = Array, F = !1, N = null, O = Object, PROTO = "prototype", T = !0, U, AP = A[PROTO], OP = O[PROTO], slice = AP.slice;
+    var A = Array, F = !1, N = null, O = Object, PROTO = "prototype", T = !0, U, AP = A[PROTO], OP = O[PROTO], defProp = "defineProperty", slice = AP.slice;
     !function() {
         function add(p, n, f) {
             typeof p[n] != "undefined" || (p[n] = f);
+        }
+        function defproptest(o) {
+            var k = "wedgES";
+            try {
+                return k in O[defProp](o, k, {});
+            } catch (e) {}
         }
         var _proto_ = "__proto__", access = !has(OP, "__defineGetter__") ? N : {
             dget : OP.__defineGetter__,
             dset : OP.__defineSetter__,
             lget : OP.__lookupGetter__,
             lset : OP.__lookupSetter__
-        }, f, get = "get", n, noenum = {
+        }, defprop, f, get = "get", n, noenum = {
             constructor : T,
             hasOwnProperty : T,
             isPrototypeOf : T,
@@ -41,6 +47,11 @@
             },
             defineProperty : function defineProperty(o, k, d) {
                 var proto;
+                if (defprop) {
+                    try {
+                        return defprop.call(O, o, k, d);
+                    } catch (e) {}
+                }
                 if (has(d, value)) {
                     if (access && (access.lget.call(o, k) || access.lset.call(o, k))) {
                         proto = o[_proto_];
@@ -100,6 +111,7 @@
                 return values;
             }
         };
+        !O[defProp] || defproptest({}) && defproptest(document.createElement("div")) || (defprop = O[defProp], O[defProp] = f.defineProperty);
         for (n in f) !has(f, n) || add(O, n, f[n]);
     }();
     !function() {
@@ -161,7 +173,7 @@
         A.isArray || (A.isArray = function isArray(a) {
             return tostr(a) == "[object Array]";
         });
-        for (n in f) !has(f, n) || O.defineProperty(AP, n, {
+        for (n in f) !has(f, n) || O[defProp](AP, n, {
             enumerable : F,
             value : f[n]
         });
@@ -175,12 +187,12 @@
         }
         var D = Date, DP = D[PROTO], format = "$3-$1-$2T$4.$5Z", iso = "toISOString", n = 1e3, re = /1(..).*?(\d\d)\D+(\d+).(\S+).*(...)/;
         "now" in D || (D.now = now);
-        iso in DP || O.defineProperty(DP, iso, {
+        iso in DP || O[defProp](DP, iso, {
             enumerable : F,
             value : toISOString
         });
     }();
-    Function[PROTO].bind || O.defineProperty(Function[PROTO], "bind", function() {
+    Function[PROTO].bind || O[defProp](Function[PROTO], "bind", function() {
         return {
             enumerable : F,
             value : function bind(ctx) {
@@ -205,7 +217,7 @@
                 return this.trimLeft().trimRight();
             }
         }, n;
-        for (n in f) !has(f, n) || O.defineProperty(SP, n, {
+        for (n in f) !has(f, n) || O[defProp](SP, n, {
             enumerable : F,
             value : f[n]
         });

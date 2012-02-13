@@ -54,5 +54,5 @@
 
 		A.isArray || ( A.isArray = function isArray( a ) { return tostr( a ) == '[object Array]'; } );
 
-		for ( n in f ) !has( f, n ) || O.defineProperty( AP, n, { enumerable : F, value : f[n] } );
+		for ( n in f ) !has( f, n ) || O[defProp]( AP, n, { enumerable : F, value : f[n] } );
 	}();

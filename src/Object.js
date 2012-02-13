@@ -2,11 +2,18 @@
 	!function() {
 		function add( p, n, f ) { typeof p[n] != 'undefined' || ( p[n] = f ); }
 
+		function defproptest( o ) {
+			var k = 'wedgES';
+			try { return k in O[defProp]( o, k, {} ); }
+			catch( e ) {}
+		}
+
 		var _proto_   = '__proto__',
 			access    = !has( OP, '__defineGetter__' ) ? N : {
 				dget : OP.__defineGetter__, dset : OP.__defineSetter__,
 				lget : OP.__lookupGetter__, lset : OP.__lookupSetter__
 			},
+			defprop,
 			f, get    = 'get', n,
 			noenum    = { // <- taken from: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/keys
 				constructor    : T, hasOwnProperty : T, isPrototypeOf : T, propertyIsEnumerable : T,
@@ -23,6 +30,12 @@
 			},
 			defineProperty : function defineProperty( o, k, d ) {
 				var proto;
+
+				if ( defprop ) {
+					try { return defprop.call( O, o, k, d ); }
+					catch ( e ) {}
+				}
+
 				if ( has( d, value ) ) {
 					if ( access && ( access.lget.call( o, k ) || access.lset.call( o, k ) ) ) {
 						proto      = o[_proto_];
@@ -85,6 +98,10 @@
 				return values;
 			}
 		};
+
+		!O[defProp]
+		|| ( defproptest( {} ) && defproptest( document.createElement( 'div' ) ) )
+		|| ( defprop = O[defProp], O[defProp] = f.defineProperty );
 
 		for ( n in f ) !has( f, n ) || add( O, n, f[n] );
 	}();
