@@ -117,56 +117,63 @@
     !function() {
         var f = {
             every : function every(fn, ctx) {
-                var i = -1, l = this.length;
-                ctx || (ctx = this);
-                while (++i < l) if (!fn.call(ctx, this[i], i, this)) return F;
+                var a = O(this), i = -1, l = a.length >>> 0;
+                while (++i < l) if (i in a && !fn.call(ctx, a[i], i, a)) return F;
                 return T;
             },
             forEach : function forEach(fn, ctx) {
-                var i = -1, l = this.length;
-                ctx || (ctx = this);
-                while (++i < l) fn.call(ctx, this[i], i, this);
+                var a = O(this), i = -1, l = a.length >>> 0;
+                while (++i < l) !(i in a) || fn.call(ctx, a[i], i, a);
             },
             filter : function filter(fn, ctx) {
-                ctx || (ctx = this);
-                return this.reduce(function(v, o, i, a) {
+                return AP.reduce.call(this, function(v, o, i, a) {
                     !fn.call(ctx, o, i, a) || v.push(o);
                     return v;
                 }, []);
             },
             indexOf : function indexOf(o, i) {
-                var l = this.length;
+                var a = O(this), l = a.length >>> 0;
+                if (l === 0) return -1;
                 i = isNaN(i) ? 0 : i < 0 ? l + i - 1 : i ? i - 1 : -1;
-                while (++i < l) if (this[i] === o) return i;
+                while (++i < l) if (i in a && a[i] === o) return i;
                 return -1;
             },
             lastIndexOf : function lastIndexOf(o, i) {
-                var l = this.length, n;
+                var a = O(this), l = a.length >>> 0, n;
+                if (l === 0) return -1;
                 i = isNaN(i) ? l : i < 0 ? l + i : i;
-                n = this.slice(0, i).reverse().indexOf(o);
+                n = slice.call(a, 0, i).reverse().indexOf(o);
                 return n < 0 ? n : i - n - 1;
             },
             map : function map(fn, ctx) {
-                ctx || (ctx = this);
-                return this.reduce(function(v, o, i, a) {
+                return AP.reduce.call(this, function(v, o, i, a) {
                     v.push(fn.call(ctx, o, i, a));
                     return v;
                 }, []);
             },
-            reduce : function reduce(fn, val) {
-                var i = -1, l = this.length;
-                while (++i < l) val = fn.call(this, val, this[i], i, this);
+            reduce : function reduce(fn) {
+                var a = O(this), i = -1, l = a.length >>> 0, val;
+                arguments.length > 1 ? val = arguments[1] : (val = a[0], i = 0);
+                while (++i < l) !(i in a) || (val = fn.call(U, val, a[i], i, a));
                 return val;
             },
-            reduceRight : function reduceRight(fn, val) {
-                var l = this.length;
-                while (--l >= 0) val = fn.call(this, val, this[l], l, this);
+            reduceRight : function reduceRight(fn) {
+                var a = O(this), l = a.length >>> 0, val;
+                if (arguments.length < 2) {
+                    do {
+                        if (l in a) {
+                            val = a[l--];
+                            break;
+                        }
+                        if (--l < 0) throw new TypeError;
+                    } while (T);
+                } else val = arguments[1];
+                while (--l >= 0) !(i in a) || (val = fn.call(U, val, a[l], l, a));
                 return val;
             },
             some : function some(fn, ctx) {
-                var i = -1, l = this.length;
-                ctx || (ctx = this);
-                while (++i < l) if (fn.call(ctx, this[i], i, this)) return T;
+                var a = O(this), i = -1, l = a.length >>> 0;
+                while (++i < l) if (i in a && fn.call(ctx, a[i], i, a)) return T;
                 return F;
             }
         }, n;
