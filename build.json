@@ -5,6 +5,6 @@
 	"out"       : { "dir" : "./", "file" : "wedgES", "min" : "wedgES.min" },
 	"src" : {
 		"dir"   : "./src",
-		"files" : ["wedgES.begin", "wedgES.vars", "Object", "Array", "Date", "Function", "String", "wedgES.end"]
+		"files" : ["$begin", "wedgES.globals", "Object", "Array", "Date", "Function", "String", "$end"]
 	}
 }
