@@ -103,5 +103,5 @@
 		|| ( defproptest( {} ) && defproptest( document.createElement( 'div' ) ) )
 		|| ( defprop = O[defProp], O[defProp] = f.defineProperty );
 
-		for ( n in f ) !has( f, n ) || add( O, n, f[n] );
+		for ( n in f ) ( has( f, n ) && has( OP, n ) ) || add( O, n, f[n] );
 	}();

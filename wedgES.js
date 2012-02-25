@@ -112,7 +112,7 @@
             }
         };
         !O[defProp] || defproptest({}) && defproptest(document.createElement("div")) || (defprop = O[defProp], O[defProp] = f.defineProperty);
-        for (n in f) !has(f, n) || add(O, n, f[n]);
+        for (n in f) has(f, n) && has(OP, n) || add(O, n, f[n]);
     }();
     !function() {
         var f = {
@@ -180,9 +180,11 @@
         A.isArray || (A.isArray = function isArray(a) {
             return tostr(a) == "[object Array]";
         });
-        for (n in f) !has(f, n) || O[defProp](AP, n, {
-            enumerable : F,
-            value : f[n]
+        f.forEach.call(O.keys(f), function(k) {
+            has(AP, k) || O[defProp](AP, k, {
+                enumerable : F,
+                value : f[k]
+            });
         });
     }();
     !function() {
@@ -224,9 +226,11 @@
                 return this.trimLeft().trimRight();
             }
         }, n;
-        for (n in f) !has(f, n) || O[defProp](SP, n, {
-            enumerable : F,
-            value : f[n]
+        O.keys(f).forEach(function(k) {
+            has(SP, k) || O[defProp](SP, k, {
+                enumerable : F,
+                value : f[k]
+            });
         });
     }();
 }(this);

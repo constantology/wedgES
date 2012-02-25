@@ -5,5 +5,5 @@
 			trim      : function trim()      { return this.trimLeft().trimRight();  }
 		}, n;
 
-		for ( n in f ) !has( f, n ) || O[defProp]( SP, n, { enumerable : F, value : f[n] } );
+		O.keys( f ).forEach( function( k ) { has( SP, k ) || O[defProp]( SP, k, { enumerable : F, value : f[k] } ); } );
 	}();
