@@ -1,7 +1,10 @@
 .DS_Store
-.idea/
+.idea
 
-node_modules/
+node_modules
 npm-debug.log
 
-test/
+*.bak*
+*.local*
+
+__ignore__
